@@ -14,7 +14,7 @@ export class Hello extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      carModelList: [],
+      carModelList: {},
       showModal: 'displayNone',
       carEquipment: []
     };
@@ -25,16 +25,17 @@ export class Hello extends Component {
   }
 
   componentWillMount() {
-    this.setState({carModelList: carModels});
+    // this.setState({carModelList: carModels.Trims});
   }
 
   renderCarList() {
-    if (this.state.carModelList) {
-      return this.state.carModelList.makes.map((car, index) => {
+    if (this.state.carModelList.Trims) {
+      return this.state.carModelList.Trims.map((car, index) => {
         return (
-          <div key={index}>
+          <div className='carCard' key={index}>
             <div>
-              {car.name}
+              <div>{car.model_make_id}</div>
+              <div>{car.model_name}</div>
             </div>
           </div>
         );
@@ -43,27 +44,19 @@ export class Hello extends Component {
   }
 
   renderCarEquipment() {
-    if (this.state.carEquipment) {
-      return this.state.carEquipment.engines.map((engine, index) => {
-        return (
-          <div key={index}>
-            <div>{engine.id}</div>
-            <div>{engine.horsepower}</div>
-          </div>
-        );
-      });
-    }
   }
 
   handleGetCarMakes() {
-    // axios.get(`http://api.edmunds.com/api/vehicle/v2/makes?fmt=json&state=new&api_key=${secrets}`)
-    axios.get(`http://api.edmunds.com/api/vehicle/v2/styles/101353967/engines?fmt=json&api_key=${secrets}`)
+    axios({
+      method: 'GET',
+      url: `https://www.carqueryapi.com/api/0.3/?callback=?&cmd=getTrims&&year=2017&sold_in_us=1&min_lkm_hwy=50`})
       .then(response => {
-        console.log('response', response);
-        this.setState({carEquipment: response.data });
+        let responseNoToken = response.data.slice(2, -2);
+        let parsedResponseNoToken = JSON.parse(responseNoToken);
+        this.setState({carModelList: parsedResponseNoToken});
       })
       .catch(err => {
-        console.warn('err in getCarMakes', err);
+        console.warn('err in handleGetCarMakes', err);
       });
   }
 
@@ -75,9 +68,9 @@ export class Hello extends Component {
           <button onClick={this.handleGetCarMakes}>Request Car List</button>
           {this.renderCarEquipment()}
         </div>
-        <MPG carModelList={this.state.carModelList}/>
-        <HP carModelList={this.state.carModelList}/>
-        <Miles carModelList={this.state.carModelList}/>
+        <MPG/>
+        <HP/>
+        <Miles/>
         <div className="col-lg-12 col-md-12">
           {this.renderCarList()}
         </div>

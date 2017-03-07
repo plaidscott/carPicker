@@ -1,3 +1,15 @@
+const express = require('express');
+const cors = require('cors');
+
+const app = express();
+
+app.set('port', (3000));
+app.listen(app.get('port'), () => {
+  console.log('Listening on port', app.get('port'));
+});
+
+
+//yoeman inital
 const gulp = require('gulp');
 const HubRegistry = require('gulp-hub');
 const browserSync = require('browser-sync');
