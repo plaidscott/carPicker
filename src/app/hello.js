@@ -6,6 +6,7 @@ import secrets from '../../secretStuff';
 import MPG from './components/MPG';
 import HP from './components/HP';
 import Miles from './components/Miles';
+import pictures from './carPictures';
 
 import carModels from './carModels';
 
@@ -36,13 +37,19 @@ export class Hello extends Component {
     if (this.state.carModelList.Trims) {
       return this.state.carModelList.Trims.map((car, index) => {
         return (
-          <div className='carCardContainer container col-lg-4 col-md-4 col-sm-4' key={index}>
+          <div className='carCardContainer container col-lg-10 col-md-10 col-sm-10' key={index}>
             <div className="row">
-              <div className='carCard thumbnail col-lg-8 col-md-8 col-sm-8'>
-                <div>{car.model_make_id}</div>
-                <div>{car.model_name}</div>
-                <div>PS:{car.model_engine_power_ps}</div>
-                <div>LKM city/hwy:{car.model_lkm_city}/{car.model_lkm_hwy}</div>
+              <div className='carCard thumbnail vertical-center col-lg-10 col-md-10 col-sm-10'>
+                <div className="col-lg-6 col-md-6 col-sm-6">
+                  <div>{car.model_make_id}</div>
+                  <div>{car.model_name}</div>
+                  <div>{car.model_trim}</div>
+                  <div>PS:{car.model_engine_power_ps}</div>
+                  <div>LKM city/hwy:{car.model_lkm_city}/{car.model_lkm_hwy}</div>
+                </div>
+                <div className="col-lg-6 col-md-6 col-sm-6 horizontal-center">
+                  <img className="carCard-image" src={'https://services.edmunds-media.com/image-service/media-ed/sharp/?&format=jpg:progressive&image=/acura/ilx/2017/oem/2017_acura_ilx_sedan_technology-plus-and-a-spec-packages_fq_oem_13_196.jpg'} alt={car.model_name}/>
+                </div>
               </div>
             </div>
           </div>
@@ -85,6 +92,8 @@ export class Hello extends Component {
           <h1>CarPicker</h1>
           <button onClick={this.handleGetCarMakes}>Request Car List</button>
         </div>
+        {pictures.photos[0].title}<hr/>
+        {pictures.photos[0].sources[0].link.href}
         <MPG updateStateFromChildren={this.updateStateFromChildren} MPG={this.state.MPG}/>
         <p>this.state.MPG in hello{this.state.MPG}</p>
         <HP updateStateFromChildren={this.updateStateFromChildren} HP={this.state.HP}/>

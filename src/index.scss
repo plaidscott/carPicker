@@ -14,3 +14,27 @@ body {
   width: 50%;
   margin: 0 auto;
 }
+
+.carCard {
+  height: 200px;
+  overflow: scroll;
+}
+
+.carCard-info {
+
+}
+
+.carCard-image {
+  margin: 0 auto;
+  height: 153px;
+  width: 190px;
+}
+
+.vertical-center {
+  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  display: flex;
+  align-items: center;
+}
+.horizontal-center {
+  margin: 0 auto;
+}
