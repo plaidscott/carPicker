@@ -3,11 +3,16 @@
 import React, {Component} from 'react';
 
 export default class HP extends Component {
-  // HP.propTypes = {
-  //   showModal: React.PropTypes.string.isRequired
-  // }
+  constructor(props) {
+    super(props);
+    this.state= {
+      HP: 0
+    }
+    this.handleHPAnswer = this.handleHPAnswer.bind(this);
+  }
   handleHPAnswer(e) {
-    console.log(e.target.value);
+    this.setState({HP: e.target.value});
+    this.props.updateStateFromChildren('HP', e.target.value);
   }
   render() {
     return (
@@ -15,11 +20,10 @@ export default class HP extends Component {
         {this.props.showModal}
         <h3>Horse Power</h3>
         <p>Section with cool horsepower reference</p>
-        <div className="btn-group">
-          <button className="btn btn-default" onClick={this.handleHPAnswer} value=">150">Just get me point A to B</button>
-          <button className="btn btn-default" onClick={this.handleHPAnswer} value="150-250">I wouldnt mind a little fun</button>
-          <button className="btn btn-default" onClick={this.handleHPAnswer} value="250+">POWER!!!</button>
+        <div className="sliderContainer">
+          <input type="range" min="0" max="500" step="5"value={this.state.HP} onChange={this.handleHPAnswer}/>
         </div>
+        {this.state.HP}
       </div>
     );
   }

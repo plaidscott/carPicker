@@ -1,11 +1,19 @@
 {
   "dependencies": {
     "axios": "^0.15.3",
+    "bootstrap": "^3.3.7",
+    "bootstrap-slider": "^9.7.2",
     "cors": "^2.8.1",
     "express": "^4.15.2",
+    "jquery": "^3.1.1",
+    "rc-slider": "^6.1.2",
+    "rc-slider-custom": "^1.0.6",
     "react": "^15.0.1",
+    "react-bootstrap-slider": "^1.1.5",
     "react-dom": "^15.0.1",
-    "react-router": "^2.4.0"
+    "react-router": "^2.4.0",
+    "react-toolbox": "^2.0.0-beta.6",
+    "webpack": "^2.1.0-beta.27"
   },
   "devDependencies": {
     "react-addons-test-utils": "^15.0.1",
