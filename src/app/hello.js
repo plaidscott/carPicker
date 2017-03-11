@@ -7,7 +7,7 @@ import MPG from './components/MPG';
 import HP from './components/HP';
 import Miles from './components/Miles';
 import pictures from './carPictures';
-
+import carImages from './carImages';
 import carModels from './carModels';
 
 
@@ -33,6 +33,27 @@ export class Hello extends Component {
     // this.setState({carModelList: carModels.Trims});
   }
 
+  filterCarImages(car) {
+    if(car) {
+      let makeArray = carImages.images.filter(make => make.make === car.model_make_id.toLowerCase());
+      if(makeArray.length > 0) {
+        let modelArray = makeArray[0].links;
+        return (
+          modelArray.map((model, index) => {
+            if(model.model === car.model_name.toLowerCase()) {
+              return(
+                <div className="col-lg-6 col-md-6 col-sm-6 horizontal-center" key={index}>
+                  <img className="carCard-image" src={'https://services.edmunds-media.com/image-service/media-ed/sharp/?&format=jpg:progressive&image=' + model.url} alt={model.model}/>
+                </div>
+              );
+            }
+          })
+        );
+      }
+    }
+
+  }
+
   renderCarList() {
     if (this.state.carModelList.Trims) {
       return this.state.carModelList.Trims.map((car, index) => {
@@ -47,9 +68,7 @@ export class Hello extends Component {
                   <div>PS:{car.model_engine_power_ps}</div>
                   <div>LKM city/hwy:{car.model_lkm_city}/{car.model_lkm_hwy}</div>
                 </div>
-                <div className="col-lg-6 col-md-6 col-sm-6 horizontal-center">
-                  <img className="carCard-image" src={'https://services.edmunds-media.com/image-service/media-ed/sharp/?&format=jpg:progressive&image=/acura/ilx/2017/oem/2017_acura_ilx_sedan_technology-plus-and-a-spec-packages_fq_oem_13_196.jpg'} alt={car.model_name}/>
-                </div>
+                {this.filterCarImages(car)}
               </div>
             </div>
           </div>
@@ -86,6 +105,7 @@ export class Hello extends Component {
   }
 
   render() {
+    {this.filterCarImages()}
     return (
       <div>
         <div className="jumbotron">
