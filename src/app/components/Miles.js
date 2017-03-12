@@ -3,11 +3,16 @@
 import React, {Component, PropTypes} from 'react';
 
 export default class Miles extends Component {
-  // Miles.propTypes = {
-  //   showModal: React.PropTypes.string
-  // }
+  constructor(props) {
+    super(props);
+    this.state = {
+      Miles: 0
+    }
+    this.handleMilesAnswer = this.handleMilesAnswer.bind(this);
+  }
   handleMilesAnswer(e) {
-    console.log(e.target.value);
+    this.setState({Miles: e.target.value});
+    this.props.updateStateFromChildren("Miles", e.target.value);
   }
   render() {
     return (
@@ -15,12 +20,10 @@ export default class Miles extends Component {
         {this.props.showModal}
         <h3>Mileage</h3>
         <p>The higher the miles, the more opportunity for your handy self to shine and save money, but if you dont want to get your hands dirty, better of with a newer car</p>
-        <div className="btn-group">
-          <button className="btn btn-default" onClick={this.handleMilesAnswer} value="new">New is best</button>
-          <button className="btn btn-default" onClick={this.handleMilesAnswer} value=">50k">Newer is good</button>
-          <button className="btn btn-default" onClick={this.handleMilesAnswer} value="50k-120k">I'm a little handy, but not to much</button>
-          <button className="btn btn-default" onClick={this.handleMilesAnswer} value="120k+">I'm a mechanic</button>
+        <div className="sliderContainer">
+          <input type="range" min="0" max="500000" step="10000" value={this.state.Miles} onChange={this.handleMilesAnswer}/>
         </div>
+        {this.state.Miles}
       </div>
     );
   }
